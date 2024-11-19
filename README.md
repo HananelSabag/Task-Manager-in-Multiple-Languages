@@ -57,7 +57,3 @@ Each directory contains:
 
 ---
 
-## Contact
-For any inquiries or suggestions, feel free to contact me:  
-- **Email**: hananel12345@gmail.com  
-- **LinkedIn**: [Hananel Sabag](https://www.linkedin.com/in/hananel-sabag-915928243/)
