@@ -5,13 +5,18 @@ import tkinter as tk
 from tkinter import messagebox
 from tkcalendar import Calendar
 
-TASKS_FILE = "tasks.json"
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
+TASKS_FILE = os.path.join(DATA_DIR, "DB_task_manager.json")
 SIGNATURE = "TaskManager"
 LANGUAGE = "Python-GUI"
 AUTHOR = "Hananel Sabag"
 
 class TaskManagerApp:
     def __init__(self, root):
+
+        if not os.path.exists(DATA_DIR):
+               os.makedirs(DATA_DIR)
+
         self.root = root
         self.root.title("Task Manager")
         self.root.geometry("600x700")
@@ -138,7 +143,7 @@ class TaskManagerApp:
     def add_task_dialog(self):
         dialog = tk.Toplevel(self.root)
         dialog.title("Add Task")
-        dialog.geometry("300x450")
+        dialog.geometry("300x500")
         dialog.grab_set()
         dialog.transient(self.root)
 

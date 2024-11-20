@@ -3,13 +3,19 @@ import os
 from datetime import datetime
 import sys
 
-TASKS_FILE = "tasks.json"
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
+TASKS_FILE = os.path.join(DATA_DIR, "DB_task_manager.json")
 SIGNATURE = "TaskManager"
 LANGUAGE = "Python-CLI"
 AUTHOR = "Hananel Sabag"
 
 class TaskManager:
     def __init__(self):
+   
+   
+        if not os.path.exists(DATA_DIR):
+          os.makedirs(DATA_DIR)
+
         self.tasks = self._load_or_init_tasks()
 
     def _load_or_init_tasks(self):
