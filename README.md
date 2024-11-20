@@ -1,59 +1,42 @@
 # Task Manager in Multiple Languages
 
-### Author: **Hananel Sabag**
+A comprehensive task management application implemented across multiple programming languages, demonstrating different programming paradigms and approaches.
 
 ## Overview
-This repository showcases the implementation of a **Task Manager** application across multiple programming languages. The project is designed to demonstrate:
-- Versatility in adapting the same problem to different programming paradigms.
-- A comparative approach to evaluate the strengths and capabilities of each language.
-- Practical programming skills in Python, Java, C++, and more.
-
-Each language implementation is structured within its own directory, with a focus on clarity, modularity, and maintainability.
-
----
-
-## Structure
-The repository is organized as follows:
-- **`Python/`**: Implementation of the Task Manager in Python.  
-- **`Java/`**: Implementation of the Task Manager in Java.  
-- **`C++/`**: Implementation of the Task Manager in C++.  
-
-Each directory contains:
-1. **Source Code**: The main implementation files.
-2. **README.md**: A detailed explanation of the implementation in that specific language.
-3. Additional supporting files as necessary (e.g., configuration, examples).
-
----
+This project showcases a task manager application with both GUI and CLI interfaces, implemented in:
+- Python
+- C++
+- Java
+*(More languages to be added)*
 
 ## Features
-- **Task Creation and Management**: Add, edit, and delete tasks.
-- **Status Tracking**: Mark tasks as "completed" or "pending."
-- **Persistence**: Save and retrieve tasks (to be implemented in some languages with file or database support).
-- **User-Friendly Interface**: Simplified CLI (Command-Line Interface) or GUI depending on the language.
+- Task Management (Add, Delete, Complete)
+- Priority Levels
+- Deadline Management
+- Activity History
+- Completion Tracking
+- Cross-Language JSON Data Compatibility
 
----
+## Project Structure
+```
+Task-Manager-in-Multiple-Languages/
+├── Python/
+│   ├── task_manager_gui.py
+│   ├── task_manager_cli.py
+│   └── README.md
+├── C++/
+│   └── (Coming soon)
+├── Java/
+│   └── (Coming soon)
+└── README.md
+```
 
-## Objectives
-1. To display proficiency in multiple programming languages.
-2. To highlight differences in syntax, structure, and paradigms between languages.
-3. To showcase adaptability and problem-solving skills.
+## Data Storage
+All implementations share a common JSON format for data storage, enabling cross-language compatibility and consistent task management.
 
----
+## File Validation
+Each implementation includes robust file validation and maintains a signature system to track which version last modified the data.
 
-## How to Use
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/HananelSabag/Task-Manager-in-Multiple-Languages.git
-   ```
-2. Navigate to the language-specific directory, e.g., `Python/`.
-3. Follow the instructions in the `README.md` file of the specific directory to run the program.
-
----
-
-## Future Enhancements
-- Add SQL integration for database-backed persistence.
-- Extend the program to include task scheduling and reminders.
-- Provide cross-platform compatibility and GUI support.
-
----
+## Author
+Created by Hananel Sabag
 
