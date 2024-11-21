@@ -1,17 +1,17 @@
 # Task Manager in Multiple Languages
 
-A comprehensive task management application implemented across multiple programming languages, demonstrating different programming paradigms and approaches.
+A comprehensive task management application implemented across multiple programming languages, demonstrating cross-language data sharing and different programming approaches.
 
 ## Overview
-This project showcases a task manager application with both GUI and CLI interfaces, implemented in:
-- Python
-- C++
-- Java
-*(More languages to be added)*
+This project implements a task manager application with command-line interfaces in multiple languages:
+- Python (CLI + GUI)
+- C++ (CLI)
+- Java (CLI)
+*(More languages planned)*
 
 ## Features
 - Task Management (Add, Delete, Complete)
-- Priority Levels
+- Priority Levels (High/Medium/Low)
 - Deadline Management
 - Activity History
 - Completion Tracking
@@ -20,23 +20,32 @@ This project showcases a task manager application with both GUI and CLI interfac
 ## Project Structure
 ```
 Task-Manager-in-Multiple-Languages/
-├── Python/
-│   ├── task_manager_gui.py
-│   ├── task_manager_cli.py
-│   └── README.md
-├── C++/
-│   └── (Coming soon)
-├── Java/
-│   └── (Coming soon)
-└── README.md
+├── Python/                   # Python implementation
+│   ├── task_manager_gui.py  # GUI version
+│   ├── task_manager_cli.py  # CLI version
+│   └── README.md            # Python documentation
+├── C++/                     # C++ implementation
+│   ├── json.hpp            # JSON library
+│   ├── task_manager_cli.cpp
+│   └── README.md           # C++ documentation
+├── Java/                    # Java implementation
+│   ├── task_manager_cli.java
+│   └── README.md           # Java documentation
+├── data/                    # Shared data directory
+│   └── DB_task_manager.json
+└── README.md               # Project overview
 ```
 
 ## Data Storage
-All implementations share a common JSON format for data storage, enabling cross-language compatibility and consistent task management.
+All implementations share a common JSON data format stored in `data/DB_task_manager.json`, enabling seamless cross-language compatibility and consistent task management.
 
-## File Validation
-Each implementation includes robust file validation and maintains a signature system to track which version last modified the data.
+## Implementation Details
+- Cross-platform compatibility
+- Consistent data format across languages
+- Activity history tracking between versions
+- Robust file validation and error handling
+- Exit signature tracking system
+- Standardized date format (DD-MM-YYYY)
 
 ## Author
 Created by Hananel Sabag
-
