@@ -1,3 +1,9 @@
+"""
+Task Manager GUI Implementation
+A graphical user interface for managing tasks with history tracking.
+Author: Hananel Sabag
+"""
+
 import json
 import os
 from datetime import datetime
@@ -5,25 +11,32 @@ import tkinter as tk
 from tkinter import messagebox
 from tkcalendar import Calendar
 
+# Global constants for file and program configuration
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
 TASKS_FILE = os.path.join(DATA_DIR, "DB_task_manager.json")
 SIGNATURE = "TaskManager"
-LANGUAGE = "Python-GUI"
+LANGUAGE = "(Python-GUI Version)."
 AUTHOR = "Hananel Sabag"
 
 class TaskManagerApp:
+    """Main application class for the Task Manager GUI"""
+    
     def __init__(self, root):
-
+        """Initialize the application and setup the GUI components"""
+        # Create data directory if it doesn't exist
         if not os.path.exists(DATA_DIR):
-               os.makedirs(DATA_DIR)
+            os.makedirs(DATA_DIR)
 
         self.root = root
         self.root.title("Task Manager")
         self.root.geometry("600x700")
         self.tasks = self._load_or_init_tasks()
         self._setup_gui()
+        # Register window closing handler
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
     def _load_or_init_tasks(self):
+        """Load existing tasks or initialize new task file"""
         if not os.path.exists(TASKS_FILE):
             initial_data = {
                 "metadata": {
@@ -49,6 +62,7 @@ class TaskManagerApp:
             return self._load_or_init_tasks()
 
     def _validate_data(self, data):
+        """Validate the JSON data structure"""
         required_keys = {"metadata", "open_tasks", "completed_tasks", "activity_history"}
         if not all(key in data for key in required_keys):
             return False
@@ -60,22 +74,30 @@ class TaskManagerApp:
         return True
 
     def _save_tasks(self, tasks):
+        """Save tasks to JSON file without logging history"""
         timestamp = datetime.now().isoformat()
         tasks["metadata"].update({
             "last_modified": timestamp,
             "language": LANGUAGE
         })
-        
-        tasks["activity_history"].append({
-            "program": "Task Manager",
-            "language": LANGUAGE,
-            "timestamp": timestamp
-        })
-        
         with open(TASKS_FILE, 'w') as file:
             json.dump(tasks, file, indent=4)
 
+    def on_closing(self):
+        """Handle application closing and log exit in history"""
+        timestamp = datetime.now().isoformat()
+        self.tasks["activity_history"].append({
+            "program": "Task Manager",
+            "language": LANGUAGE,
+            "timestamp": timestamp,
+            "action": "Program Exit"
+        })
+        with open(TASKS_FILE, 'w') as file:
+            json.dump(self.tasks, file, indent=4)
+        self.root.destroy()
+
     def _setup_gui(self):
+        """Setup the GUI components"""
         # Title
         title_label = tk.Label(
             self.root,
@@ -100,7 +122,7 @@ class TaskManagerApp:
         self.task_list.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.config(command=self.task_list.yview)
 
-        # Buttons Frame
+        # Action Buttons
         buttons_frame = tk.Frame(self.root)
         buttons_frame.pack(pady=5)
 
@@ -120,7 +142,7 @@ class TaskManagerApp:
                 width=15
             ).pack(side=tk.LEFT, padx=5)
 
-        # Footer
+        # Footer with author credit
         footer = tk.Label(
             self.root,
             text=f"Made by {AUTHOR}",
@@ -132,6 +154,7 @@ class TaskManagerApp:
         self.refresh_list()
 
     def refresh_list(self):
+        """Update the displayed task list"""
         self.task_list.delete(0, tk.END)
         self.task_list.insert(tk.END, "=== ACTIVE TASKS ===")
         self.task_list.insert(tk.END, "")
@@ -141,6 +164,7 @@ class TaskManagerApp:
                 f"{i}. {task['name']} - Priority: {task['priority']} - Deadline: {task['deadline']}")
 
     def add_task_dialog(self):
+        """Show dialog for adding a new task"""
         dialog = tk.Toplevel(self.root)
         dialog.title("Add Task")
         dialog.geometry("300x500")
@@ -173,6 +197,7 @@ class TaskManagerApp:
         button_frame.pack(side=tk.BOTTOM, pady=15)
 
         def save():
+            """Save new task and update display"""
             name = name_entry.get().strip()
             if not name:
                 messagebox.showerror("Error", "Task name is required!")
@@ -206,6 +231,7 @@ class TaskManagerApp:
         ).pack(side=tk.LEFT, padx=5)
 
     def mark_done(self):
+        """Mark selected task as completed"""
         selection = self.task_list.curselection()
         if not selection or selection[0] <= 1:
             messagebox.showwarning("Warning", "Please select a task")
@@ -224,6 +250,7 @@ class TaskManagerApp:
         messagebox.showinfo("Success", f"Task '{completed_task['name']}' completed!")
 
     def delete_task(self):
+        """Delete selected task"""
         selection = self.task_list.curselection()
         if not selection or selection[0] <= 1:
             messagebox.showwarning("Warning", "Please select a task")
@@ -236,6 +263,7 @@ class TaskManagerApp:
         messagebox.showinfo("Success", f"Task '{deleted_task['name']}' deleted!")
 
     def show_completed(self):
+        """Show dialog with completed tasks"""
         dialog = tk.Toplevel(self.root)
         dialog.title("Completed Tasks")
         dialog.geometry("400x300")
@@ -268,6 +296,7 @@ class TaskManagerApp:
         tk.Button(dialog, text="Close", command=dialog.destroy, width=10).pack(pady=5)
 
     def show_activity_history(self):
+        """Show dialog with activity history"""
         dialog = tk.Toplevel(self.root)
         dialog.title("Activity History")
         dialog.geometry("500x400")
@@ -295,7 +324,7 @@ class TaskManagerApp:
         for i, entry in enumerate(reversed(self.tasks["activity_history"]), 1):
             timestamp = datetime.fromisoformat(entry["timestamp"]).strftime("%Y-%m-%d %H:%M:%S")
             history_list.insert(tk.END, 
-                f"{i}. {timestamp} - {entry['program']} ({entry['language']})")
+                f"{i}. {timestamp} - {entry['program']} {entry['language']}")
 
         tk.Button(dialog, text="Close", command=dialog.destroy, width=10).pack(pady=5)
 

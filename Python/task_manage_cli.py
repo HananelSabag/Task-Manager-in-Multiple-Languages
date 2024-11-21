@@ -1,24 +1,31 @@
+"""
+Task Manager CLI Implementation
+A command-line interface for managing tasks with history tracking.
+Author: Hananel Sabag
+"""
 import json
 import os
 from datetime import datetime
 import sys
 
+# Global constants for file and program configuration
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
 TASKS_FILE = os.path.join(DATA_DIR, "DB_task_manager.json")
 SIGNATURE = "TaskManager"
-LANGUAGE = "Python-CLI"
+LANGUAGE = "(Python-CLI Version)."
 AUTHOR = "Hananel Sabag"
 
 class TaskManager:
+    """Main class for managing tasks through command line interface"""
+    
     def __init__(self):
-   
-   
+        """Initialize task manager and ensure data directory exists"""
         if not os.path.exists(DATA_DIR):
-          os.makedirs(DATA_DIR)
-
+            os.makedirs(DATA_DIR)
         self.tasks = self._load_or_init_tasks()
 
     def _load_or_init_tasks(self):
+        """Load existing tasks file or create new one if doesn't exist"""
         if not os.path.exists(TASKS_FILE):
             initial_data = {
                 "metadata": {
@@ -44,6 +51,7 @@ class TaskManager:
             return self._load_or_init_tasks()
 
     def _validate_data(self, data):
+        """Validate the JSON data structure"""
         required_keys = {"metadata", "open_tasks", "completed_tasks", "activity_history"}
         if not all(key in data for key in required_keys):
             return False
@@ -55,22 +63,28 @@ class TaskManager:
         return True
 
     def _save_tasks(self, tasks):
+        """Save tasks to JSON file without logging"""
         timestamp = datetime.now().isoformat()
         tasks["metadata"].update({
             "last_modified": timestamp,
             "language": LANGUAGE
         })
-        
-        tasks["activity_history"].append({
-            "program": "Task Manager",
-            "language": LANGUAGE,
-            "timestamp": timestamp
-        })
-        
         with open(TASKS_FILE, 'w') as file:
             json.dump(tasks, file, indent=4)
 
+    def add_exit_signature(self):
+        """Add exit signature to activity history when program closes"""
+        timestamp = datetime.now().isoformat()
+        self.tasks["activity_history"].append({
+            "program": "Task Manager",
+            "language": LANGUAGE,
+            "timestamp": timestamp,
+            "action": "Program Exit"
+        })
+        self._save_tasks(self.tasks)
+
     def show_menu(self):
+        """Display and handle main menu options"""
         while True:
             print("\n=== Task Manager ===")
             print("1. List Tasks")
@@ -96,12 +110,14 @@ class TaskManager:
             elif choice == "6":
                 self.show_activity_history()
             elif choice == "0":
-                print(f"\nGoodbye! Made by {AUTHOR}")
+                self.add_exit_signature()
+                print(f"\nGoodbye! Made by {AUTHOR} {LANGUAGE}")
                 break
             else:
                 print("\nInvalid choice. Please try again.")
 
     def list_tasks(self):
+        """Display all active tasks"""
         print("\n=== ACTIVE TASKS ===\n")
         if not self.tasks["open_tasks"]:
             print("No active tasks.")
@@ -111,6 +127,7 @@ class TaskManager:
             print(f"{i}. {task['name']} - Priority: {task['priority']} - Deadline: {task['deadline']}")
 
     def add_task(self):
+        """Add a new task with name, priority, and deadline"""
         print("\n=== Add New Task ===\n")
         name = input("Enter task name: ").strip()
         if not name:
@@ -146,6 +163,7 @@ class TaskManager:
         print("\nTask added successfully!")
 
     def mark_done(self):
+        """Mark a task as completed and move it to completed tasks"""
         if not self.tasks["open_tasks"]:
             print("\nNo tasks to mark as done!")
             return
@@ -170,6 +188,7 @@ class TaskManager:
             print("\nPlease enter a valid number!")
 
     def delete_task(self):
+        """Delete a task from active tasks"""
         if not self.tasks["open_tasks"]:
             print("\nNo tasks to delete!")
             return
@@ -189,6 +208,7 @@ class TaskManager:
             print("\nPlease enter a valid number!")
 
     def show_completed(self):
+        """Display all completed tasks"""
         print("\n=== COMPLETED TASKS ===\n")
         if not self.tasks["completed_tasks"]:
             print("No completed tasks.")
@@ -199,6 +219,7 @@ class TaskManager:
             print(f"{i}. {task['name']} - Priority: {task['priority']} - Completed: {completed_time}")
 
     def show_activity_history(self):
+        """Display activity history including program usage and task operations"""
         print("\n=== ACTIVITY HISTORY ===\n")
         if not self.tasks["activity_history"]:
             print("No activity history.")
@@ -206,13 +227,14 @@ class TaskManager:
 
         for i, entry in enumerate(self.tasks["activity_history"], 1):
             timestamp = datetime.fromisoformat(entry["timestamp"]).strftime("%Y-%m-%d %H:%M:%S")
-            print(f"{i}. {timestamp} - {entry['program']} ({entry['language']})")
+            print(f"{i}. {timestamp} - {entry['program']} {entry['language']}")
 
 if __name__ == "__main__":
     try:
         app = TaskManager()
         app.show_menu()
     except KeyboardInterrupt:
-        print(f"\nGoodbye! Made by {AUTHOR}")
+        print(f"\nGoodbye! Made by {AUTHOR} {LANGUAGE}")
+        app.add_exit_signature()
     except Exception as e:
         print(f"\nAn unexpected error occurred: {str(e)}")
