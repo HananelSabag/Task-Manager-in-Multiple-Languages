@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.cpp linguist-detectable=true
+*.py linguist-detectable=true
+*.java linguist-detectable=true
