@@ -2,11 +2,25 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "java",
-      "name": "TaskManagerCLI",
+      "name": "Debug TaskManagerCLI (C++)",
+      "type": "cppdbg",
       "request": "launch",
-      "mainClass": "TaskManagerCLI",
-      "projectName": "Task-Manager-in-Multiple-Languages_4f0342be"
+      "program": "${workspaceFolder}/C++/task_manager_cli.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/C++",
+      "environment": [],
+      "externalConsole": true,
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Build C++ Task Manager"
     },
     {
       "name": "C/C++ Runner: Debug Session",
@@ -16,7 +30,7 @@
       "stopAtEntry": false,
       "externalConsole": true,
       "cwd": "c:/Users/hanan/OneDrive/מסמכים/GitHub/Task-Manager-in-Multiple-Languages/C++",
-      "program": "c:/Users/hanan/OneDrive/מסמכים/GitHub/Task-Manager-in-Multiple-Languages/C++/task_manager.exe",
+      "program": "c:/Users/hanan/OneDrive/מסמכים/GitHub/Task-Manager-in-Multiple-Languages/C++/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
