@@ -78,8 +78,7 @@ class TaskManager:
         self.tasks["activity_history"].append({
             "program": "Task Manager",
             "language": LANGUAGE,
-            "timestamp": timestamp,
-            "action": "Program Exit"
+            "timestamp": timestamp
         })
         self._save_tasks(self.tasks)
 

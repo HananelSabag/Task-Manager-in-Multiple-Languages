@@ -2,17 +2,39 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug TaskManagerCLI (C++)",
+      "type": "java",
+      "name": "TaskManagerCLI",
+      "request": "launch",
+      "mainClass": "TaskManagerCLI",
+      "projectName": "Task-Manager-in-Multiple-Languages_4f0342be"
+    },
+    {
+      "name": "Python CLI",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/Python/task_manager_cli.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/Python"
+    },
+    {
+      "name": "Python GUI",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/Python/task_manager_gui.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/Python"
+    },
+    {
+      "name": "C++ CLI",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/C++/task_manager_cli.exe",
+      "program": "${workspaceFolder}/C++/task_manager_cli",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/C++",
       "environment": [],
       "externalConsole": true,
       "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
@@ -20,7 +42,30 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "Build C++ Task Manager"
+      "preLaunchTask": "build-cpp"
+    },
+    {
+      "type": "java",
+      "name": "Java CLI",
+      "request": "launch",
+      "mainClass": "TaskManagerCLI",
+      "projectName": "Task-Manager-in-Multiple-Languages",
+      "classpath": [
+        "${workspaceFolder}/Java/lib/gson-2.10.1.jar",
+        "${workspaceFolder}/Java"
+      ],
+      "cwd": "${workspaceFolder}/Java"
+    },
+    {
+      "name": "C# CLI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-csharp",
+      "program": "${workspaceFolder}/C#/bin/Debug/net7.0/task_manager_cli.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/C#",
+      "console": "externalTerminal",
+      "stopAtEntry": false
     },
     {
       "name": "C/C++ Runner: Debug Session",

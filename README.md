@@ -47,5 +47,10 @@ All implementations share a common JSON data format stored in `data/DB_task_mana
 - Exit signature tracking system
 - Standardized date format (DD-MM-YYYY)
 
+
+### Using VS Code
+If you're using VS Code, the project includes pre-configured `launch.json` and `tasks.json` files to simplify compilation and debugging. Simply open the project in VS Code and follow the provided build and debug tasks.
+
+
 ## Author
 Created by Hananel Sabag
