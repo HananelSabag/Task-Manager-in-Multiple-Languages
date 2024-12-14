@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "TaskManagerCLI",
+      "request": "launch",
+      "mainClass": "TaskManagerCLI",
+      "projectName": "Task-Manager-in-Multiple-Languages_4f0342be"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
