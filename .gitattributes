@@ -1,10 +1,20 @@
-# Auto detect text files and perform LF normalization
 * text=auto
-*.cpp linguist-detectable=true
-*.py linguist-detectable=true
-*.java linguist-detectable=true
-*.cpp linguist-language=C++
-*.py linguist-language=Python
-*.java linguist-language=Java
-*.cs linguist-language=C#
-*.c linguist-language=C
+*.cpp linguist-detectable=true linguist-language=C++
+*.py linguist-detectable=true linguist-language=Python
+*.java linguist-detectable=true linguist-language=Java
+*.cs linguist-detectable=true linguist-language=C#
+*.c linguist-detectable=true linguist-language=C
+*.h linguist-language=C
+*.exe -diff
+*.dll -diff
+*.pdb -diff
+*.class -diff
+*.json text
+*.obj binary
+*.log binary
+*.o binary
+*.out binary
+*.a binary
+*.lib binary
+*.md text
+*.txt text
